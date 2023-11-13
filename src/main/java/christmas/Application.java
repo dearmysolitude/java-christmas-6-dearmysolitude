@@ -5,5 +5,8 @@ public class Application {
         // TODO: 프로그램 구현
         EventPlanner eventPlanner = new EventPlanner();
         
+        eventPlanner.makeTotalprice();
+        eventPlanner.discountOrNot();
+        eventPlanner.makeTotalAdvantage();
     }
 }

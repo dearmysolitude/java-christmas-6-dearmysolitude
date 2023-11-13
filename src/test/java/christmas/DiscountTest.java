@@ -1,16 +1,12 @@
 package christmas;
 
-import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -40,7 +36,7 @@ class DiscountTest {
     @DisplayName("makeTotalDisckountPrice메서드")
     void testMakeTotalDiscountPrice(int date, List<Menu> menus, int expectedDDayDiscount, int expectedWeekDiscount, int expectedSpecialDiscount) {
         discount.decideStatus(date);
-        discount.makeTotalDiscountPrice(date, menus);
+        discount.makeTotalDiscount(date, menus);
 
         assertThat(discount.getdDayDiscount()).isEqualTo(expectedDDayDiscount);
         assertThat(discount.getWeekDiscount()).isEqualTo(expectedWeekDiscount);

@@ -54,7 +54,7 @@ public class Discount {
         }
     }
 
-    public int makeTotalDiscountPrice(Integer date, List<Menu> menus) {
+    public int makeTotalDiscount(Integer date, List<Menu> menus) {
         dDayDiscount(date);
         weekDiscount(menus);
         specialDiscount();
