@@ -11,7 +11,7 @@ public class EventPlanner {
     private Integer date;
     private Integer totalPrice;
     private final Discount discount;
-    private boolean gift;
+    private Menu gift;
     private Badge badge;
     private Integer totalAdvantage;
     
@@ -21,7 +21,7 @@ public class EventPlanner {
         this.totalPrice = null;
         this.discount = new Discount();
         this.totalAdvantage = null;
-        this.gift = false;
+        this.gift = null;
         this.badge = null;
     }
 
@@ -36,7 +36,19 @@ public class EventPlanner {
     public Integer getTotalPrice() {
         return totalPrice;
     }
-    
+
+    public boolean isGift() {
+        return gift;
+    }
+
+    public Badge getBadge() {
+        return badge;
+    }
+
+    public Integer getTotalAdvantage() {
+        return totalAdvantage;
+    }
+
     public EventPlanner setMenuOrders(List<Menu> menuOrders) {
         this.orders = menuOrders;
         return this;
@@ -65,18 +77,22 @@ public class EventPlanner {
     
     public void makeTotalAdvantage() {
         this.totalAdvantage = this.discount.makeTotalDiscount(this.date, this.orders);
-        if(this.gift){
-            this.totalAdvantage += Menu.CHAMPAGNE.getPrice();
+        if(this.gift != null){
+            this.totalAdvantage += gift.getPrice();
         }
     }
     
     private void checkGift() {
         if(this.totalPrice > Constants.GIFTPRICE) {
-            this.gift = true;
+            this.gift = Menu.CHAMPAGNE;
         }
     }
     
     public void setBadge() {
         this.badge = Badge.badgeOf(totalAdvantage);
+    }
+    
+    public Integer makeActualCost() {
+        return this.totalPrice - this.totalAdvantage;
     }
 }
