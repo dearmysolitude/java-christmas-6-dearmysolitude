@@ -1,4 +1,4 @@
-package christmas;
+package christmas.Enum;
 
 public enum Sort {
     APITIZER,

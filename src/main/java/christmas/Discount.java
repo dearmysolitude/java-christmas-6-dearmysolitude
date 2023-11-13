@@ -1,5 +1,9 @@
 package christmas;
 
+import christmas.Constants.Constants;
+import christmas.Enum.Menu;
+import christmas.Enum.Sort;
+
 import java.util.List;
 
 public class Discount {

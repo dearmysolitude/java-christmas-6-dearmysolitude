@@ -1,5 +1,9 @@
 package christmas;
 
+import christmas.Constants.Constants;
+import christmas.Enum.Badge;
+import christmas.Enum.Menu;
+
 import java.util.List;
 
 public class EventPlanner {
@@ -8,6 +12,7 @@ public class EventPlanner {
     private Integer totalPrice;
     private final Discount discount;
     private boolean gift;
+    private Badge badge;
     private Integer totalAdvantage;
     
     public EventPlanner() {
@@ -15,7 +20,9 @@ public class EventPlanner {
         this.date = null;
         this.totalPrice = null;
         this.discount = new Discount();
+        this.totalAdvantage = null;
         this.gift = false;
+        this.badge = null;
     }
 
     public List<Menu> getMenuOrders() {
@@ -64,9 +71,12 @@ public class EventPlanner {
     }
     
     private void checkGift() {
-        if(this.totalPrice > 120000) {
+        if(this.totalPrice > Constants.GIFTPRICE) {
             this.gift = true;
         }
     }
     
+    public void setBadge() {
+        this.badge = Badge.badgeOf(totalAdvantage);
+    }
 }
