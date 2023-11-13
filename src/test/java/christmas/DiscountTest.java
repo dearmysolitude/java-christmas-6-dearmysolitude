@@ -6,73 +6,54 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 class DiscountTest {
+    
     Discount discount = new Discount();
     
-    @Test
-    @DisplayName("decideStatus메서드: 1일, 주말, 비이벤트일")
-    void testDecideStatus1() {
-        int date = 1;
+    @ParameterizedTest
+    @MethodSource("provideTestCasesForDecideStatus")
+    @DisplayName("decideStatus Test: 1일, 25일, 12일")
+    void testDecideStatus(int date, boolean expectedIsItWeekEnds, boolean expectedIsItSpecialDay) {
         discount.decideStatus(date);
-        assertThat(discount.isItWeekEnds()).isTrue();
-        assertThat(discount.isItSpecialDay()).isFalse();
-    }
-    @Test
-    @DisplayName("decideStatus메서드: 25일, 비주말, 이벤트일")
-    void testDecideStatus2() {
-        int date = 25;
-        discount.decideStatus(date);
-        assertThat(discount.isItWeekEnds()).isFalse();
-        assertThat(discount.isItSpecialDay()).isTrue();
-    }
-    @Test
-    @DisplayName("decideStatus메서드: 12일, 비주말, 이벤트일")
-    void testDecideStatus3() {
-        int date = 12;
-        discount.decideStatus(date);
-        assertThat(discount.isItWeekEnds()).isFalse();
-        assertThat(discount.isItSpecialDay()).isFalse();
+        assertThat(discount.isItWeekEnds()).isEqualTo(expectedIsItWeekEnds);
+        assertThat(discount.isItSpecialDay()).isEqualTo(expectedIsItSpecialDay);
     }
     
-    @Test
-    @DisplayName("makeTotalDisckountPrice메서드: 25일, 수프, 스테이크, 케이크, 아이스크림, 콜라")
-    void testMakeTotalDiscountPrice1() {
-        int date = 25;
-        List<Menu> menus = List.of(Menu.SOUP, Menu.STEAK, Menu.CAKE, Menu.ICECREAM, Menu.COKE);
-        discount.decideStatus(date);
-        discount.makeTotalDiscountPrice(date, menus);
-        
-        assertThat(discount.getdDayDiscount()).isEqualTo(Constants.DDAY_BASICDISCOUNT + 24 * Constants.DDAY_DISCOUNT);
-        assertThat(discount.getWeekDiscount()).isEqualTo(2 * Constants.WEEKLY_DISCOUNT);
-        assertThat(discount.getSpecialDiscount()).isEqualTo(Constants.SPECIAL_DISCOUNT);
+    private static Stream<Arguments> provideTestCasesForDecideStatus() {
+        return Stream.of(
+                Arguments.of(1, true, false),
+                Arguments.of(25, false, true),
+                Arguments.of(12, false, false)
+        );
     }
 
-    @Test
-    @DisplayName("makeTotalDisckountPrice메서드: 28일, 수프, 스테이크, 케이크, 아이스크림, 콜라")
-    void testMakeTotalDiscountPrice2() {
-        int date = 28;
-        List<Menu> menus = List.of(Menu.SOUP, Menu.STEAK, Menu.CAKE, Menu.ICECREAM, Menu.COKE);
+    @ParameterizedTest
+    @MethodSource("provideTestCasesForMakeTotalDiscountPrice")
+    @DisplayName("makeTotalDisckountPrice메서드")
+    void testMakeTotalDiscountPrice(int date, List<Menu> menus, int expectedDDayDiscount, int expectedWeekDiscount, int expectedSpecialDiscount) {
         discount.decideStatus(date);
         discount.makeTotalDiscountPrice(date, menus);
 
-        assertThat(discount.getdDayDiscount()).isZero();
-        assertThat(discount.getWeekDiscount()).isEqualTo(2 * Constants.WEEKLY_DISCOUNT);
-        assertThat(discount.getSpecialDiscount()).isZero();
+        assertThat(discount.getdDayDiscount()).isEqualTo(expectedDDayDiscount);
+        assertThat(discount.getWeekDiscount()).isEqualTo(expectedWeekDiscount);
+        assertThat(discount.getSpecialDiscount()).isEqualTo(expectedSpecialDiscount);
     }
 
-    @Test
-    @DisplayName("makeTotalDisckountPrice메서드: 1일, 수프, 스테이크, 케이크, 아이스크림 ,콜라")
-    void testMakeTotalDiscountPrice3() {
-        int date = 1;
+    private static Stream<Arguments> provideTestCasesForMakeTotalDiscountPrice() {
         List<Menu> menus = List.of(Menu.SOUP, Menu.STEAK, Menu.CAKE, Menu.ICECREAM, Menu.COKE);
-        discount.decideStatus(date);
-        discount.makeTotalDiscountPrice(date, menus);
-
-        assertThat(discount.getdDayDiscount()).isEqualTo(Constants.DDAY_BASICDISCOUNT + 0 * Constants.DDAY_DISCOUNT);
-        assertThat(discount.getWeekDiscount()).isEqualTo(1 * Constants.WEEKLY_DISCOUNT);
-        assertThat(discount.getSpecialDiscount()).isZero();
+        return Stream.of(
+                Arguments.of(25, menus, Constants.DDAY_BASICDISCOUNT + 24 * Constants.DDAY_DISCOUNT, 2 * Constants.WEEKLY_DISCOUNT, Constants.SPECIAL_DISCOUNT),
+                Arguments.of(28, menus, 0, 2 * Constants.WEEKLY_DISCOUNT, 0),
+                Arguments.of(1, menus, Constants.DDAY_BASICDISCOUNT + 0 * Constants.DDAY_DISCOUNT, 1 * Constants.WEEKLY_DISCOUNT, 0)
+        );
     }
+
 }
