@@ -1,8 +1,8 @@
 package christmas;
 
 import christmas.Constants.Constants;
-import christmas.Enum.Badge;
-import christmas.Enum.Menu;
+import christmas.Constants.Badge;
+import christmas.Constants.Menu;
 
 import java.util.List;
 
@@ -20,8 +20,8 @@ public class EventPlanner {
         this.date = null;
         this.totalPrice = null;
         this.discount = new Discount();
-        this.totalAdvantage = null;
         this.gift = null;
+        this.totalAdvantage = null;
         this.badge = null;
     }
 
@@ -37,7 +37,7 @@ public class EventPlanner {
         return totalPrice;
     }
 
-    public boolean isGift() {
+    public Menu getGift() {
         return gift;
     }
 
@@ -49,19 +49,12 @@ public class EventPlanner {
         return totalAdvantage;
     }
 
-    public EventPlanner setMenuOrders(List<Menu> menuOrders) {
+    public void setMenuOrders(List<Menu> menuOrders) {
         this.orders = menuOrders;
-        return this;
     }
 
-    public EventPlanner setDate(Integer date) {
+    public void setDate(Integer date) {
         this.date = date;
-        return this;
-    }
-
-    public EventPlanner setTotalPrice(Integer totalPrice) {
-        this.totalPrice = totalPrice;
-        return this;
     }
     
     public void makeTotalprice() {
@@ -70,16 +63,13 @@ public class EventPlanner {
                 .sum();
     }
     
-    public void discountOrNot() {
-        this.discount.decideStatus(this.date);
-        checkGift();
-    }
-    
     public void makeTotalAdvantage() {
-        this.totalAdvantage = this.discount.makeTotalDiscount(this.date, this.orders);
+        checkGift();
         if(this.gift != null){
-            this.totalAdvantage += gift.getPrice();
+            this.totalAdvantage = this.discount.makeTotalDiscount(this.date, this.orders) + gift.getPrice();
+            return;
         }
+        this.totalAdvantage = this.discount.makeTotalDiscount(this.date, this.orders);
     }
     
     private void checkGift() {
@@ -89,7 +79,7 @@ public class EventPlanner {
     }
     
     public void setBadge() {
-        this.badge = Badge.badgeOf(totalAdvantage);
+        this.badge = Badge.badgeOf(this.totalAdvantage);
     }
     
     public Integer makeActualCost() {

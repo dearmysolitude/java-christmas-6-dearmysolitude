@@ -1,4 +1,4 @@
-package christmas.Enum;
+package christmas.Constants;
 
 public enum Badge {
     STAR,

@@ -1,4 +1,4 @@
-package christmas.Enum;
+package christmas.Constants;
 
 public enum Menu {
     SOUP("양송이수프", 6000, Sort.APITIZER),

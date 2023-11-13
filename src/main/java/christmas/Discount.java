@@ -1,8 +1,8 @@
 package christmas;
 
 import christmas.Constants.Constants;
-import christmas.Enum.Menu;
-import christmas.Enum.Sort;
+import christmas.Constants.Menu;
+import christmas.Constants.Sort;
 
 import java.util.List;
 
@@ -41,7 +41,18 @@ public class Discount {
         return specialDiscount;
     }
 
-    public void decideStatus(Integer date) {
+    public int makeTotalDiscount(Integer date, List<Menu> menus) {
+        
+        decideStatus(date);
+        
+        dDayDiscount(date);
+        weekDiscount(menus);
+        specialDiscount();
+        
+        return dDayDiscount + weekDiscount + specialDiscount;
+    }
+
+    private void decideStatus(Integer date) {
         isItWeekday(date);
         isItSpecialDay(date);
     }
@@ -57,20 +68,14 @@ public class Discount {
             this.specialDay = true;
         }
     }
-
-    public int makeTotalDiscount(Integer date, List<Menu> menus) {
-        dDayDiscount(date);
-        weekDiscount(menus);
-        specialDiscount();
-        return dDayDiscount + weekDiscount + specialDiscount;
-    }
     
     private void dDayDiscount(Integer date) {
         if(date > Constants.CHRISTMAS) {
             this.dDayDiscount = 0;
             return;
         }
-         this.dDayDiscount =Constants.DDAY_BASICDISCOUNT + (date - 1) * Constants.DDAY_DISCOUNT;
+        this.dDayDiscount = Constants.DDAY_BASICDISCOUNT 
+                + (date - 1) * Constants.DDAY_DISCOUNT;
     }
     
     private void weekDiscount(List<Menu> menus) {
