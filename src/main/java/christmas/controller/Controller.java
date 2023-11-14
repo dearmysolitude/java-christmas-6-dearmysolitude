@@ -49,7 +49,11 @@ public class Controller {
         }
     }
     
-//    public void checkCost() {
-//        if(this.eventPlanner.getTotalPrice())
-//    }
+    public void makeResult() {
+        eventPlanner.makeTotalprice();
+        eventPlanner.makeTotalAdvantage();
+        eventPlanner.setBadge();
+    }
+    
+    
 }

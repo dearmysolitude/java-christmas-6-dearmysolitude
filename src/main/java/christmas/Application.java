@@ -18,7 +18,7 @@ public class Application {
         controller.handleDate();
         controller.handleMenu();
         
-//        controller.
+        controller.makeResult();
         
         Console.close();
     }
