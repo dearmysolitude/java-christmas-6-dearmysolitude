@@ -11,14 +11,20 @@ public class Application {
         // TODO: 프로그램 구현
         EventPlanner eventPlanner = new EventPlanner();
         InputView inputView = new InputView();
-        OutputView outputView = new OutputView();
+        OutputView outputView = new OutputView(eventPlanner);
         
         Controller controller = new Controller(eventPlanner, inputView, outputView);
+        
+        controller.startMessagePrint();
         
         controller.handleDate();
         controller.handleMenu();
         
         controller.makeResult();
+        
+        controller.middleMessagePrint();
+        
+        controller.printResult();
         
         Console.close();
     }

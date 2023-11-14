@@ -52,6 +52,8 @@ public class EventPlanner {
     public Integer getTotalAdvantage() {
         return totalAdvantage;
     }
+    
+    public Discount getDiscount() { return discount; }
 
     public void setMenuOrders(List<Order> menuOrders) {
         this.orders = menuOrders;
@@ -89,7 +91,10 @@ public class EventPlanner {
     }
     
     public Integer makeActualCost() {
-        return this.totalPrice - this.totalAdvantage;
+        return this.totalPrice 
+                - this.discount.getWeekDiscount() 
+                - this.discount.getdDayDiscount() 
+                - this.discount.getWeekDiscount();
     }
     
     public void checkMenuOrders() {

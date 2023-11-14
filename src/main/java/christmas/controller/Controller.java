@@ -13,11 +13,14 @@ public class Controller {
     private final OutputView outputView;
     private static final String ERROR = "[ERROR]";
 
-
     public Controller(EventPlanner eventPlanner, InputView inputView, OutputView outputView) {
         this.eventPlanner = eventPlanner;
         this.inputView = inputView;
         this.outputView = outputView;
+    }
+    
+    public void startMessagePrint() {
+        outputView.printStart();
     }
     
     public void handleDate() {
@@ -51,9 +54,26 @@ public class Controller {
     
     public void makeResult() {
         eventPlanner.makeTotalprice();
+        if(eventPlanner.getTotalAdvantage() < 10000) {
+            return;
+        }
         eventPlanner.makeTotalAdvantage();
         eventPlanner.setBadge();
     }
     
+    public void middleMessagePrint() {
+        System.out.println("12월 "+ eventPlanner.getDate() 
+                + "일에 우테코 식당에서 받을 이벤트 혜택 미리보기!");
+        System.out.println();
+    }
     
+    public void printResult() {
+        outputView.printMenu();
+        outputView.printTotalPrice();
+        outputView.printGift();
+        outputView.printDiscounts();
+        outputView.printAmountOfAdvantages();
+        outputView.printExpectedPrice();
+        outputView.printEventBadge();
+    }
 }

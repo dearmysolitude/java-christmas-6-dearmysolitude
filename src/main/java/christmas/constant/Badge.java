@@ -1,9 +1,15 @@
 package christmas.constant;
 
 public enum Badge {
-    STAR,
-    TREE,
-    SANTA;
+    STAR("별"),
+    TREE("나무"),
+    SANTA("산타");
+    
+    private String name;
+    
+    Badge(String name) {
+        this.name = name;
+    } 
     
     public static Badge badgeOf(Integer totalAdvantage) {
         Badge badge;
@@ -35,4 +41,7 @@ public enum Badge {
         return null;
     }
 
+    public String getName() {
+        return this.name;
+    }
 }
