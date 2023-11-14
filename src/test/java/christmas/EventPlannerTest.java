@@ -2,6 +2,7 @@ package christmas;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import christmas.constant.Badge;
 import christmas.constant.Menu;
@@ -76,5 +77,32 @@ class EventPlannerTest {
                         2023 + 1000 + 25000,
                         Badge.SANTA)
                 );
+    }
+    
+    @DisplayName("checkMenuOrders test")
+    @ParameterizedTest
+    @MethodSource("provideTestCasesForCheckMenuOrders")
+    void testCheckMenuOrders(List<Order> menus) {
+        eventPlanner.setMenuOrders(menus);
+        assertThatThrownBy(() -> {
+            eventPlanner.checkMenuOrders();
+        }).isInstanceOf(IllegalArgumentException.class);
+    }
+    private static Stream<Arguments> provideTestCasesForCheckMenuOrders() {
+        Order order1 = new Order(Menu.SOUP, 1);
+        Order order2 = new Order(Menu.RIB, 1);
+        Order order3 = new Order(Menu.CAKE, 1);
+        Order order4 = new Order(Menu.COKE, 1);
+        Order order5 = new Order(Menu.CHRISTMASPASTA, 1);
+        Order order6 = new Order(Menu.WINE, 0);
+        Order order7 = new Order(Menu.TAPAS, 21);
+
+
+        return Stream.of(
+                Arguments.of((Object) null),
+                Arguments.of(List.of(order1, order1, order3, order4)),
+                Arguments.of(List.of(order1, order2, order3, order4, order5, order6)),
+                Arguments.of(List.of(order1, order2, order3, order4, order5, order7))
+        );
     }
 }

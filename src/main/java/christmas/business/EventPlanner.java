@@ -93,8 +93,7 @@ public class EventPlanner {
     
     public void checkMenuOrders() {
         if(this.orders == null || checkDuplicatedMenu() || checkOrderNumber()) {
-            System.out.println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-            this.orders = null;
+            throw new IllegalArgumentException();
         }
     }
     private boolean checkDuplicatedMenu() {

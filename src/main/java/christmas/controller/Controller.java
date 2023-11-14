@@ -27,20 +27,21 @@ public class Controller {
                 input = inputView.readDate();
                 eventPlanner.setDate(input);
             } catch(IllegalArgumentException e) {
-            System.out.println(ERROR + " 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
                 input = null;
+                System.out.println(ERROR + " 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
             }
         }
     }
     
     public void handleMenu() {
-        List<Order> input = null;
+        List<Order> input;
         while(eventPlanner.getMenuOrders() == null) {
             try{
                 input = inputView.readMenu();
                 eventPlanner.setMenuOrders(input);
                 eventPlanner.checkMenuOrders();
             } catch(IllegalArgumentException e) {
+                eventPlanner.setMenuOrders(null);
                 System.out.println(ERROR + " 유효하지 않은 주문입니다. 다시 입력해 주세요.");
             }
         }
