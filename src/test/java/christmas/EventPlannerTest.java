@@ -95,14 +95,35 @@ class EventPlannerTest {
         Order order4 = new Order(Menu.COKE, 1);
         Order order5 = new Order(Menu.CHRISTMASPASTA, 1);
         Order order6 = new Order(Menu.WINE, 0);
-        Order order7 = new Order(Menu.TAPAS, 21);
 
 
         return Stream.of(
                 Arguments.of((Object) null),
                 Arguments.of(List.of(order1, order1, order3, order4)),
-                Arguments.of(List.of(order1, order2, order3, order4, order5, order6)),
-                Arguments.of(List.of(order1, order2, order3, order4, order5, order7))
+                Arguments.of(List.of(order1, order2, order3, order4, order5, order6))
         );
+    }
+    
+    @Test
+    @DisplayName("20개 이상 주문한 경우")
+    void testIfOrderedOverTwenty() {
+        Order order1 = new Order(Menu.SOUP, 1);
+        Order order2 = new Order(Menu.RIB, 1);
+        Order order3 = new Order(Menu.WINE, 30);
+        
+        eventPlanner.setMenuOrders(List.of(order3, order2, order1));
+        eventPlanner.ifOrderedOverTwenty();
+        assertThat(eventPlanner.getMenuOrders()).isNull();
+    }
+
+    @Test
+    @DisplayName("음료만 주문한 경우")
+    void testIfOrderedOnlyDrink() {
+        Order order1 = new Order(Menu.CHAMPAGNE, 1);
+        Order order2 = new Order(Menu.WINE, 5);
+
+        eventPlanner.setMenuOrders(List.of(order2, order1));
+        eventPlanner.ifOrderedOnlyDrink();
+        assertThat(eventPlanner.getMenuOrders()).isNull();
     }
 }

@@ -3,6 +3,7 @@ package christmas.business;
 import christmas.constant.Badge;
 import christmas.constant.Constants;
 import christmas.constant.Menu;
+import christmas.constant.Sort;
 import christmas.entity.Order;
 
 import java.util.List;
@@ -108,10 +109,32 @@ public class EventPlanner {
     }
     private boolean checkOrderNumber() {
         for(Order order : this.orders) {
-            if(order.getNumber() < 1 || order.getNumber() > 20){
+            if(order.getNumber() < 1){
                 return true;
             }
         }
         return false;
+    }
+    public void ifOrderedOverTwenty(){
+        int number = 0;
+        for(Order order : this.orders) {
+            number += order.getNumber();
+        }
+        if(number > 20) {
+            System.out.println("[ERROR] 한 번에 20개 품목 이하의 주문을 할 수 있습니다. 다시 입력해 주세요.");
+            this.orders = null;
+        }
+    }
+    public void ifOrderedOnlyDrink() {
+        int number = 0;
+        for(Order order : this.orders) {
+            if(order.getMenu().getSort() == Sort.DRINK) {
+                number += 1;
+            }
+        }
+        if(number == this.orders.size()) {
+            System.out.println("[ERROR] 음료만 주문할 수 없습니다. 다시 입력해 주세요.");
+            this.orders = null;
+        }
     }
 }
