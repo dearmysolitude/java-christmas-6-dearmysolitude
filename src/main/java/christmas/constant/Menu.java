@@ -24,6 +24,15 @@ public enum Menu {
         this.sort = sort;
     }
     
+    public static Menu getMenuWithName(String input) {
+        for(Menu menu : values()) {
+            if(menu.getfoodName().equals(input)){
+                return menu;
+            }
+        }
+        throw new IllegalArgumentException("Invalid menu name: " + input);
+    }
+    
     public String getfoodName() {
         return this.foodName;
     }
