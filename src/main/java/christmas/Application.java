@@ -16,6 +16,7 @@ public class Application {
         Controller controller = new Controller(eventPlanner, inputView, outputView);
         
         controller.handleDate();
+        controller.handleMenu();
         
         
         

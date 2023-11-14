@@ -3,6 +3,8 @@ package christmas.model;
 import christmas.constants.Constants;
 import christmas.constants.Menu;
 import christmas.constants.Sort;
+import christmas.entity.Order;
+import org.mockito.internal.matchers.Or;
 
 import java.util.List;
 
@@ -41,12 +43,12 @@ public class Discount {
         return specialDiscount;
     }
 
-    public int makeTotalDiscount(Integer date, List<Menu> menus) {
+    public int makeTotalDiscount(Integer date, List<Order> orders) {
         
         decideStatus(date);
         
         dDayDiscount(date);
-        weekDiscount(menus);
+        weekDiscount(orders);
         specialDiscount();
         
         return dDayDiscount + weekDiscount + specialDiscount;
@@ -78,25 +80,25 @@ public class Discount {
                 + (date - 1) * Constants.DDAY_DISCOUNT;
     }
     
-    private void weekDiscount(List<Menu> menus) {
+    private void weekDiscount(List<Order> orders) {
         if(this.weekEnds) {
-            weekEndDiscount(menus);
+            weekEndDiscount(orders);
             return;
         }
-        weekDayDiscount(menus);
+        weekDayDiscount(orders);
     }
-    private void weekDayDiscount(List<Menu> menus) {
+    private void weekDayDiscount(List<Order> orders) {
         this.weekDiscount = 0;
-        menus.forEach(menu -> {
-            if(menu.getSort() == Sort.DESSERT) {
+        orders.forEach(order -> {
+            if(order.getMenu().getSort() == Sort.DESSERT) {
                 this.weekDiscount += Constants.WEEKLY_DISCOUNT;
             }
         });
     }
-    private void weekEndDiscount(List<Menu> menus) {
+    private void weekEndDiscount(List<Order> orders) {
         this.weekDiscount = 0;
-        menus.forEach(menu -> {
-            if(menu.getSort() == Sort.MAINDISH) {
+        orders.forEach(order -> {
+            if(order.getMenu().getSort() == Sort.MAINDISH) {
                 this.weekDiscount += Constants.WEEKLY_DISCOUNT;
             }
         });

@@ -3,11 +3,12 @@ package christmas.model;
 import christmas.constants.Constants;
 import christmas.constants.Badge;
 import christmas.constants.Menu;
+import christmas.entity.Order;
 
 import java.util.List;
 
 public class EventPlanner {
-    private List<Menu> orders;
+    private List<Order> orders;
     private Integer date;
     private Integer totalPrice;
     private final Discount discount;
@@ -25,7 +26,7 @@ public class EventPlanner {
         this.badge = null;
     }
 
-    public List<Menu> getMenuOrders() {
+    public List<Order> getMenuOrders() {
         return orders;
     }
 
@@ -49,7 +50,7 @@ public class EventPlanner {
         return totalAdvantage;
     }
 
-    public void setMenuOrders(List<Menu> menuOrders) {
+    public void setMenuOrders(List<Order> menuOrders) {
         this.orders = menuOrders;
     }
 
@@ -59,7 +60,9 @@ public class EventPlanner {
     
     public void makeTotalprice() {
         this.totalPrice = this.orders.stream()
-                .mapToInt(Menu::getPrice)
+                .mapToInt(order -> {
+                    return order.getMenu().getPrice();
+                })
                 .sum();
     }
     
