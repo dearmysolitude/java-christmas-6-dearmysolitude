@@ -32,39 +32,32 @@ public class InputView {
     public List<Order> readMenu() {
         System.out.println("주문하실 메뉴를 메뉴와 개수를 알려주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1,타파스-1,제로콜라1)");
         String input = Console.readLine();
+        if(input.isEmpty()){
+            throw new IllegalArgumentException();
+        }
         return parseMenuWithComma(input); 
     }
     
     public List<Order> parseMenuWithComma(String input) {
         List<String> temps = Arrays.stream(input.split(",")).toList();
-        System.out.println("List<String>temps = " + temps);
         return makeOrderList(temps);
     }
     
     private List<Order> makeOrderList(List<String> temps) {
         List<Order> output = new ArrayList<>();
         temps.forEach(temp -> output.add(parseMenuWithHypen(temp)));
-        System.out.println("List<Order> output = " + output);
         return output;
     }
     
     private Order parseMenuWithHypen(String input) {
         String[] temp = input.split("-");
         
-        if(temp[0].isEmpty() || temp[1].isEmpty()) {
-            throw new IllegalArgumentException();
-        }
-        
         Menu menu;
         int number;
         
         try {
-            System.out.println("temp[0] = " + temp[0]);
-            System.out.println("temp[1] = " + temp[1]);
             menu = Menu.getMenuWithName(temp[0]);
-            System.out.println("Menu menu = " + menu);
             number = Integer.parseInt(temp[1]);
-            System.out.println("Menu - " + menu.getfoodName()+ ": " + number);
             return new Order(menu, number);
         } catch(NumberFormatException e) {
             throw new IllegalArgumentException("[ERROR] Invalid input format",e);
