@@ -1,4 +1,4 @@
-package christmas.constants;
+package christmas.constant;
 
 public enum Badge {
     STAR,

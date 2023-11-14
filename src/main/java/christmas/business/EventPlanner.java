@@ -1,11 +1,13 @@
-package christmas.model;
+package christmas.business;
 
-import christmas.constants.Constants;
-import christmas.constants.Badge;
-import christmas.constants.Menu;
+import christmas.constant.Badge;
+import christmas.constant.Constants;
+import christmas.constant.Menu;
 import christmas.entity.Order;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class EventPlanner {
     private List<Order> orders;
@@ -87,5 +89,30 @@ public class EventPlanner {
     
     public Integer makeActualCost() {
         return this.totalPrice - this.totalAdvantage;
+    }
+    
+    public void checkMenuOrders() {
+        if(this.orders == null || checkDuplicatedMenu() || checkOrderNumber()) {
+            System.out.println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            this.orders = null;
+        }
+    }
+    private boolean checkDuplicatedMenu() {
+        Map<Menu, List<Order>> groupOrders = orders.stream()
+                .collect(Collectors.groupingBy(Order::getMenu));
+        for(Map.Entry<Menu, List<Order>> entry : groupOrders.entrySet()) {
+            if(entry.getValue().size() > 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean checkOrderNumber() {
+        for(Order order : this.orders) {
+            if(order.getNumber() < 1){
+                return true;
+            }
+        }
+        return false;
     }
 }

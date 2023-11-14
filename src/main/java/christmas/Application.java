@@ -2,7 +2,7 @@ package christmas;
 
 import camp.nextstep.edu.missionutils.Console;
 import christmas.controller.Controller;
-import christmas.model.EventPlanner;
+import christmas.business.EventPlanner;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 

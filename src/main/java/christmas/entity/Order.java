@@ -1,10 +1,10 @@
 package christmas.entity;
 
-import christmas.constants.Menu;
+import christmas.constant.Menu;
 
 public class Order {
-    private Menu menu;
-    private Integer number;
+    private final Menu menu;
+    private final Integer number;
     
     public Order(Menu menu, Integer number) {
         this.number = number;

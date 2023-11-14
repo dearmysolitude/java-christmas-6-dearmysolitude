@@ -1,7 +1,7 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.constants.Menu;
+import christmas.constant.Menu;
 import christmas.entity.Order;
 
 import java.util.ArrayList;
@@ -32,8 +32,12 @@ public class InputView {
     }
     
     private List<Order> parseMenuWithComma(String input) {
-        List<Order> output = new ArrayList<>();
         List<String> temps = Arrays.stream(input.split(",")).toList();
+        return makeOrderList(temps);
+    }
+    
+    private List<Order> makeOrderList(List<String> temps) {
+        List<Order> output = new ArrayList<>();
         temps.forEach(temp -> output.add(parseMenuWithHypen(temp)));
         return output;
     }
@@ -42,7 +46,7 @@ public class InputView {
         String[] temp = input.split("-");
         
         Menu menu;
-        Integer number;
+        int number;
         
         try {
             menu = Menu.valueOf(temp[0]);

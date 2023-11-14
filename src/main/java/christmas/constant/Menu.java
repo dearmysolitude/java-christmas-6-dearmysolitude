@@ -1,4 +1,4 @@
-package christmas.constants;
+package christmas.constant;
 
 public enum Menu {
     SOUP("양송이수프", 6000, Sort.APITIZER),

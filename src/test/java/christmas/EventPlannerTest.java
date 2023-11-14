@@ -3,16 +3,15 @@ package christmas;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.constants.Badge;
-import christmas.constants.Menu;
+import christmas.constant.Badge;
+import christmas.constant.Menu;
 import christmas.entity.Order;
-import christmas.model.EventPlanner;
+import christmas.business.EventPlanner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.internal.matchers.Or;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -69,12 +68,12 @@ class EventPlannerTest {
                 Arguments.of(
                         List.of(order1, order2, order3, order4, order5, order6),
                         1,
-                        1000 + 2023 * 2 + 0 + 25000,
+                        1000 + 2023 * 2 + 25000,
                         Badge.SANTA),
                 Arguments.of(
                         List.of(order1, order2, order3, order4, order5, order6),
                         31,
-                        0 + 2023 * 1 + 1000 + 25000,
+                        2023 + 1000 + 25000,
                         Badge.SANTA)
                 );
     }
