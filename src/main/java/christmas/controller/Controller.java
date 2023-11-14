@@ -54,7 +54,7 @@ public class Controller {
     
     public void makeResult() {
         eventPlanner.makeTotalprice();
-        if(eventPlanner.getTotalAdvantage() < 10000) {
+        if(eventPlanner.getTotalPrice() < 10000) {
             return;
         }
         eventPlanner.makeTotalAdvantage();
@@ -71,7 +71,7 @@ public class Controller {
         outputView.printMenu();
         outputView.printTotalPrice();
         outputView.printGift();
-        outputView.printDiscounts();
+//        outputView.printDiscounts();
         outputView.printAmountOfAdvantages();
         outputView.printExpectedPrice();
         outputView.printEventBadge();

@@ -2,10 +2,10 @@ package christmas.constant;
 
 public enum Badge {
     STAR("별"),
-    TREE("나무"),
+    TREE("트리"),
     SANTA("산타");
     
-    private String name;
+    private final String name;
     
     Badge(String name) {
         this.name = name;
