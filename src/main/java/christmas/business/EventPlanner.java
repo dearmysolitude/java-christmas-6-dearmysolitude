@@ -66,18 +66,19 @@ public class EventPlanner {
     public void makeTotalprice() {
         this.totalPrice = this.orders.stream()
                 .mapToInt(order -> {
-                    return order.getMenu().getPrice();
+                    return order.getMenu().getPrice() * order.getNumber();
                 })
                 .sum();
     }
     
     public void makeTotalAdvantage() {
         checkGift();
+        this.discount.makeTotalDiscount(this.date,this.orders);
         if(this.gift != null){
-            this.totalAdvantage = this.discount.makeTotalDiscount(this.date, this.orders) + gift.getPrice();
+            this.totalAdvantage = this.discount.getTotalDiscount() + gift.getPrice();
             return;
         }
-        this.totalAdvantage = this.discount.makeTotalDiscount(this.date, this.orders);
+        this.totalAdvantage = this.discount.getTotalDiscount();
     }
     
     private void checkGift() {
@@ -91,10 +92,11 @@ public class EventPlanner {
     }
     
     public Integer makeActualCost() {
+        if(this.totalAdvantage == null) {
+            return this.totalPrice;
+        }
         return this.totalPrice 
-                - this.discount.getWeekDiscount() 
-                - this.discount.getdDayDiscount() 
-                - this.discount.getWeekDiscount();
+                - this.discount.getTotalDiscount();
     }
     
     public void checkMenuOrders() {

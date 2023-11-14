@@ -12,6 +12,7 @@ public class Discount {
     private Integer weekDiscount;
     private boolean specialDay;
     private Integer specialDiscount;
+    private Integer totalDiscount;
     
     public Discount() {
         this.weekEnds = false;
@@ -19,6 +20,7 @@ public class Discount {
         this.dDayDiscount = null;
         this.weekDiscount = null;
         this.specialDiscount = null;
+        this.totalDiscount = null;
     }
 
     public boolean isItWeekEnds() {
@@ -40,8 +42,10 @@ public class Discount {
     public Integer getSpecialDiscount() {
         return specialDiscount;
     }
+    
+    public Integer getTotalDiscount() { return totalDiscount; }
 
-    public int makeTotalDiscount(Integer date, List<Order> orders) {
+    public void makeTotalDiscount(Integer date, List<Order> orders) {
         
         decideStatus(date);
         
@@ -49,7 +53,7 @@ public class Discount {
         weekDiscount(orders);
         specialDiscount();
         
-        return dDayDiscount + weekDiscount + specialDiscount;
+        this.totalDiscount = dDayDiscount + weekDiscount + specialDiscount;
     }
 
     private void decideStatus(Integer date) {
@@ -89,7 +93,7 @@ public class Discount {
         this.weekDiscount = 0;
         orders.forEach(order -> {
             if(order.getMenu().getSort() == Sort.DESSERT) {
-                this.weekDiscount += Constants.WEEKLY_DISCOUNT;
+                this.weekDiscount += Constants.WEEKLY_DISCOUNT * order.getNumber();
             }
         });
     }
@@ -97,7 +101,7 @@ public class Discount {
         this.weekDiscount = 0;
         orders.forEach(order -> {
             if(order.getMenu().getSort() == Sort.MAINDISH) {
-                this.weekDiscount += Constants.WEEKLY_DISCOUNT;
+                this.weekDiscount += Constants.WEEKLY_DISCOUNT * order.getNumber();
             }
         });
     }

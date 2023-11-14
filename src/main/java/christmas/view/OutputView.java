@@ -34,7 +34,7 @@ public class OutputView {
             System.out.println();
             return;
         }
-        System.out.println(numberFormat.format(eventPlanner.getGift().getfoodName()) + " 1개");
+        System.out.println(eventPlanner.getGift().getfoodName() + " 1개");
         System.out.println();
     }
     public void printDiscounts() {
@@ -47,6 +47,11 @@ public class OutputView {
     }
     public void printAmountOfAdvantages() {
         System.out.println("<총혜택 금액>");
+        if(eventPlanner.getTotalAdvantage() == null) {
+            System.out.println("0원");
+            System.out.println();
+            return;
+        }
         System.out.println("-"+numberFormat.format(eventPlanner.getTotalAdvantage())+"원");
         System.out.println();
     }
@@ -58,6 +63,10 @@ public class OutputView {
     }
     public void printEventBadge() {
         System.out.println("<12월 이벤트 배지>");
+        if(eventPlanner.getBadge() == null) {
+            System.out.println("없음");
+            return;
+        }
         System.out.println(eventPlanner.getBadge().getName());
     }
 }
