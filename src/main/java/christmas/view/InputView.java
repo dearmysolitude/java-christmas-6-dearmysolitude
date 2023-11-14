@@ -12,10 +12,14 @@ public class InputView {
     public int readDate() {
         System.out.println("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
         String input = Console.readLine();
+        return parseDate(input);
+    }
+    
+    public int parseDate(String input) {
         try {
             return isItValid(Integer.parseInt(input));
         } catch(NumberFormatException e) {
-            throw new IllegalArgumentException(e);
+            throw new IllegalArgumentException("[ERROR] Invalid input format", e);
         }
     }
     private int isItValid(Integer input) {
@@ -31,7 +35,7 @@ public class InputView {
         return parseMenuWithComma(input); 
     }
     
-    private List<Order> parseMenuWithComma(String input) {
+    public List<Order> parseMenuWithComma(String input) {
         List<String> temps = Arrays.stream(input.split(",")).toList();
         return makeOrderList(temps);
     }
@@ -52,7 +56,7 @@ public class InputView {
             menu = Menu.valueOf(temp[0]);
             number = Integer.parseInt(temp[1]);
         } catch(NumberFormatException e) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("[ERROR] Invalid input format",e);
         }
 
         return new Order(menu, number);

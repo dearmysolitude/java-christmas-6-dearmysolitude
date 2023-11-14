@@ -109,7 +109,7 @@ public class EventPlanner {
     }
     private boolean checkOrderNumber() {
         for(Order order : this.orders) {
-            if(order.getNumber() < 1){
+            if(order.getNumber() < 1 || order.getNumber() > 20){
                 return true;
             }
         }
