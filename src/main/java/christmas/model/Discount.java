@@ -1,8 +1,8 @@
-package christmas;
+package christmas.model;
 
-import christmas.Constants.Constants;
-import christmas.Constants.Menu;
-import christmas.Constants.Sort;
+import christmas.constants.Constants;
+import christmas.constants.Menu;
+import christmas.constants.Sort;
 
 import java.util.List;
 
@@ -85,7 +85,6 @@ public class Discount {
         }
         weekDayDiscount(menus);
     }
-    
     private void weekDayDiscount(List<Menu> menus) {
         this.weekDiscount = 0;
         menus.forEach(menu -> {

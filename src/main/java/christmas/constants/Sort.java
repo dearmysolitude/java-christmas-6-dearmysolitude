@@ -1,4 +1,4 @@
-package christmas.Constants;
+package christmas.constants;
 
 public enum Sort {
     APITIZER,

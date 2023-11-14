@@ -3,8 +3,9 @@ package christmas;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.Constants.Badge;
-import christmas.Constants.Menu;
+import christmas.constants.Badge;
+import christmas.constants.Menu;
+import christmas.model.EventPlanner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

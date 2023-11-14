@@ -1,8 +1,8 @@
-package christmas;
+package christmas.model;
 
-import christmas.Constants.Constants;
-import christmas.Constants.Badge;
-import christmas.Constants.Menu;
+import christmas.constants.Constants;
+import christmas.constants.Badge;
+import christmas.constants.Menu;
 
 import java.util.List;
 

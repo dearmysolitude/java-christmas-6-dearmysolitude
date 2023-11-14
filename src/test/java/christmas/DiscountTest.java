@@ -2,8 +2,9 @@ package christmas;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.Constants.Constants;
-import christmas.Constants.Menu;
+import christmas.constants.Constants;
+import christmas.constants.Menu;
+import christmas.model.Discount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

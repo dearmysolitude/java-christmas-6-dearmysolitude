@@ -1,4 +1,4 @@
-package christmas.Constants;
+package christmas.constants;
 
 public class Constants {
     public static final int SPECIAL_DISCOUNT = 1000;
