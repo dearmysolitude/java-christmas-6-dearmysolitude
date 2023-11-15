@@ -47,16 +47,9 @@ public class Controller {
     private void enterMenuToEventPlanner() {
         try{
             eventPlanner.setMenuOrders(inputView.readMenu());
-            verifyMenuValidity();
         } catch(IllegalArgumentException e) {
-            eventPlanner.setMenuOrders(null);
             System.out.println(ERROR + e.getMessage());
         }
-    }
-    private void verifyMenuValidity() {
-        eventPlanner.checkMenuOrders();
-        eventPlanner.ifOrderedOverTwenty();
-        eventPlanner.ifOrderedOnlyDrink();
     }
     
     public void makeResult() {

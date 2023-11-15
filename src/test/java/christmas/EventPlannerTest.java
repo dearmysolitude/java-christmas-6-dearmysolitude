@@ -83,9 +83,8 @@ class EventPlannerTest {
     @ParameterizedTest
     @MethodSource("provideTestCasesForCheckMenuOrders")
     void testCheckMenuOrders(List<Order> menus) {
-        eventPlanner.setMenuOrders(menus);
         assertThatThrownBy(() -> {
-            eventPlanner.checkMenuOrders();
+            eventPlanner.setMenuOrders(menus);
         }).isInstanceOf(IllegalArgumentException.class);
     }
     private static Stream<Arguments> provideTestCasesForCheckMenuOrders() {
@@ -111,9 +110,8 @@ class EventPlannerTest {
         Order order2 = new Order(Menu.RIB, 1);
         Order order3 = new Order(Menu.WINE, 30);
         
-        eventPlanner.setMenuOrders(List.of(order3, order2, order1));
         assertThatThrownBy(() -> {
-            eventPlanner.ifOrderedOverTwenty();
+            eventPlanner.setMenuOrders(List.of(order3, order2, order1));
         }).isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("한 번에 20개 품목 이하의 주문을 할 수 있습니다. 다시 입력해 주세요.");
     }
@@ -124,9 +122,8 @@ class EventPlannerTest {
         Order order1 = new Order(Menu.CHAMPAGNE, 1);
         Order order2 = new Order(Menu.WINE, 5);
 
-        eventPlanner.setMenuOrders(List.of(order2, order1));
         assertThatThrownBy(() -> {
-            eventPlanner.ifOrderedOnlyDrink();
+            eventPlanner.setMenuOrders(List.of(order2, order1));
         }).isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("음료만 주문할 수 없습니다. 다시 입력해 주세요.");
     }

@@ -57,6 +57,9 @@ public class EventPlanner {
 
     public void setMenuOrders(List<Order> menuOrders) {
         this.orders = menuOrders;
+        checkMenuOrders();
+        ifOrderedOverTwenty();
+        ifOrderedOnlyDrink();
     }
 
     public void setDate(Integer date) {
@@ -64,10 +67,9 @@ public class EventPlanner {
     }
     
     public void makeTotalprice() {
-        this.totalPrice = this.orders.stream()
-                .mapToInt(order -> {
-                    return order.getMenu().getPrice() * order.getNumber();
-                })
+        this.totalPrice = this.orders
+                .stream()
+                .mapToInt(order -> order.getMenu().getPrice() * order.getNumber())
                 .sum();
     }
     
@@ -99,8 +101,9 @@ public class EventPlanner {
                 - this.discount.getTotalDiscount();
     }
     
-    public void checkMenuOrders() {
+    private void checkMenuOrders() {
         if(this.orders == null || checkDuplicatedMenu() || checkOrderNumber()) {
+            this.orders = null;
             throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
@@ -122,16 +125,17 @@ public class EventPlanner {
         }
         return false;
     }
-    public void ifOrderedOverTwenty(){
+    private void ifOrderedOverTwenty(){
         int number = 0;
         for(Order order : this.orders) {
             number += order.getNumber();
         }
         if(number > 20) {
+            this.orders = null;
             throw new IllegalArgumentException("한 번에 20개 품목 이하의 주문을 할 수 있습니다. 다시 입력해 주세요.");
         }
     }
-    public void ifOrderedOnlyDrink() {
+    private void ifOrderedOnlyDrink() {
         int number = 0;
         for(Order order : this.orders) {
             if(order.getMenu().getSort() == Sort.DRINK) {
@@ -139,6 +143,7 @@ public class EventPlanner {
             }
         }
         if(number == this.orders.size()) {
+            this.orders = null;
             throw new IllegalArgumentException("음료만 주문할 수 없습니다. 다시 입력해 주세요.");
         }
     }
