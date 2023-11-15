@@ -101,7 +101,7 @@ public class EventPlanner {
     
     public void checkMenuOrders() {
         if(this.orders == null || checkDuplicatedMenu() || checkOrderNumber()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
     private boolean checkDuplicatedMenu() {
@@ -128,8 +128,7 @@ public class EventPlanner {
             number += order.getNumber();
         }
         if(number > 20) {
-            System.out.println("[ERROR] 한 번에 20개 품목 이하의 주문을 할 수 있습니다. 다시 입력해 주세요.");
-            this.orders = null;
+            throw new IllegalArgumentException("한 번에 20개 품목 이하의 주문을 할 수 있습니다. 다시 입력해 주세요.");
         }
     }
     public void ifOrderedOnlyDrink() {
@@ -140,8 +139,7 @@ public class EventPlanner {
             }
         }
         if(number == this.orders.size()) {
-            System.out.println("[ERROR] 음료만 주문할 수 없습니다. 다시 입력해 주세요.");
-            this.orders = null;
+            throw new IllegalArgumentException("음료만 주문할 수 없습니다. 다시 입력해 주세요.");
         }
     }
 }

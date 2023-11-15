@@ -33,7 +33,7 @@ public class InputView {
         System.out.println("주문하실 메뉴를 메뉴와 개수를 알려주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1,타파스-1,제로콜라-1)");
         String input = Console.readLine();
         if(input.isEmpty()){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
         return parseMenuWithComma(input); 
     }
@@ -60,7 +60,7 @@ public class InputView {
             number = Integer.parseInt(temp[1]);
             return new Order(menu, number);
         } catch(NumberFormatException e) {
-            throw new IllegalArgumentException("[ERROR] Invalid input format",e);
+            throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.",e);
         }
 
     }

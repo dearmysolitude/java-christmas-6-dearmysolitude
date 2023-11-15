@@ -24,32 +24,39 @@ public class Controller {
     }
     
     public void handleDate() {
-        Integer input = null;
-        while(input == null) {
-            try{
-                input = inputView.readDate();
-                eventPlanner.setDate(input);
-            } catch(IllegalArgumentException e) {
-                input = null;
-                System.out.println(ERROR + " 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
-            }
+        while(eventPlanner.getDate() == null) {
+            eventPlanner.setDate(enterDateToEventPlanner());
         }
+    }
+    private Integer enterDateToEventPlanner() {
+        Integer input = null;
+        try{
+            input = inputView.readDate();
+        } catch(IllegalArgumentException e) {
+            System.out.println(ERROR + " 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+        }
+        return input;
     }
     
     public void handleMenu() {
-        List<Order> input;
         while(eventPlanner.getMenuOrders() == null) {
-            try{
-                input = inputView.readMenu();
-                eventPlanner.setMenuOrders(input);
-                eventPlanner.checkMenuOrders();
-                eventPlanner.ifOrderedOverTwenty();
-                eventPlanner.ifOrderedOnlyDrink();
-            } catch(IllegalArgumentException e) {
-                eventPlanner.setMenuOrders(null);
-                System.out.println(ERROR + " 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-            }
+            enterMenuToEventPlanner();
         }
+    }
+    
+    private void enterMenuToEventPlanner() {
+        try{
+            eventPlanner.setMenuOrders(inputView.readMenu());
+            verifyMenuValidity();
+        } catch(IllegalArgumentException e) {
+            eventPlanner.setMenuOrders(null);
+            System.out.println(ERROR + " " + e.getMessage());
+        }
+    }
+    private void verifyMenuValidity() {
+        eventPlanner.checkMenuOrders();
+        eventPlanner.ifOrderedOverTwenty();
+        eventPlanner.ifOrderedOnlyDrink();
     }
     
     public void makeResult() {
@@ -62,9 +69,7 @@ public class Controller {
     }
     
     public void middleMessagePrint() {
-        System.out.println("12월 "+ eventPlanner.getDate() 
-                + "일에 우테코 식당에서 받을 이벤트 혜택 미리보기!");
-        System.out.println();
+        outputView.printMiddle();
     }
     
     public void printResult() {
