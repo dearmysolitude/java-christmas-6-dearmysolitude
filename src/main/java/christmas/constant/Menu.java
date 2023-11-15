@@ -30,7 +30,7 @@ public enum Menu {
                 return menu;
             }
         }
-        throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요. 메뉴에 없는 음식입니다: " + input);
+        throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요. 쉼표로만 구분하여 입력할 것. 입력 내용:" + input);
     }
     
     public String getfoodName() {

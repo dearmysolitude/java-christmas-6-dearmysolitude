@@ -61,12 +61,6 @@ public class Controller {
     }
     
     public void printResult() {
-        outputView.printMenu();
-        outputView.printTotalPrice();
-        outputView.printGift();
-        outputView.printDiscounts();
-        outputView.printAmountOfAdvantages();
-        outputView.printExpectedPrice();
-        outputView.printEventBadge();
+        outputView.printResult();
     }
 }

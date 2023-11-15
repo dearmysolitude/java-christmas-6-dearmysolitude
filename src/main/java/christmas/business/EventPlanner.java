@@ -84,7 +84,7 @@ public class EventPlanner {
     }
     
     private void checkGift() {
-        if(this.totalPrice > Constants.GIFTPRICE) {
+        if(this.totalPrice >= Constants.GIFTPRICE) {
             this.gift = Menu.CHAMPAGNE;
         }
     }

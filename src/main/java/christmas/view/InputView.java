@@ -27,7 +27,7 @@ public class InputView {
         if(input >= 1 && input <= 31) {
             return input;
         }
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException(INPUT_DATE_ERROR_MESSAGE + " 1 이상, 31이하 숫자를 입력해 주세요.");
     }
     
     public List<Order> readMenu() {
@@ -62,7 +62,7 @@ public class InputView {
     private Order makeOrderObject(List<String> input) {
         
         Menu menu = Menu.getMenuWithName(input.get(0));
-        int number = pareseStringToInteger(input.get(1), INPUT_MENU_ERROR_MESSAGE + " 음식 수량은 1 이상 숫자로 입력해주세요.");
+        int number = pareseStringToInteger(input.get(1), INPUT_MENU_ERROR_MESSAGE + " 음식 수량은 1 이상 자연수로 입력해주세요.");
         
         if(input.size() != 2) {
             throw new IllegalArgumentException(INPUT_MENU_ERROR_MESSAGE);
@@ -70,16 +70,22 @@ public class InputView {
         
         return new Order(menu, number);
     }
-    public List<String> parseWith(String input, String delimeter) {
+    private List<String> parseWith(String input, String delimeter) {
         return Arrays.stream(input.split(delimeter)).toList();
     }
     
     private Integer pareseStringToInteger(String input, String exceptionMessage) {
         try {
-            return Integer.parseInt(input);
+            Integer parsedInput = Integer.parseInt(input);
+            checkNumberInvalid(input, parsedInput, exceptionMessage);
+            return parsedInput;
         } catch(NumberFormatException e) {
             throw new IllegalArgumentException(exceptionMessage , e);
         }
     }
-    
+    private void checkNumberInvalid(String input, Integer parsedInput, String exceptionMessage) {
+        if (!Integer.toString(parsedInput).equals(input)) {
+            throw new IllegalArgumentException(exceptionMessage + "(0을 사용하지않고 자연수만 입력해 주세요)");
+        }
+    }
 }
