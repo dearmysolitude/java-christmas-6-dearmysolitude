@@ -18,8 +18,4 @@ public class Order {
     public Integer getNumber() {
         return number;
     }
-    
-    public boolean equals(Order o) {
-        return this.menu == o.menu && this.number == o.number;
-    }
 }
