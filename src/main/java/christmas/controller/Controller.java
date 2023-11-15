@@ -11,7 +11,7 @@ public class Controller {
     private final EventPlanner eventPlanner;
     private final InputView inputView;
     private final OutputView outputView;
-    private static final String ERROR = "[ERROR]";
+    private static final String ERROR = "[ERROR] ";
 
     public Controller(EventPlanner eventPlanner, InputView inputView, OutputView outputView) {
         this.eventPlanner = eventPlanner;
@@ -33,7 +33,7 @@ public class Controller {
         try{
             input = inputView.readDate();
         } catch(IllegalArgumentException e) {
-            System.out.println(ERROR + " 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            System.out.println(ERROR + e.getMessage());
         }
         return input;
     }
@@ -50,7 +50,7 @@ public class Controller {
             verifyMenuValidity();
         } catch(IllegalArgumentException e) {
             eventPlanner.setMenuOrders(null);
-            System.out.println(ERROR + " " + e.getMessage());
+            System.out.println(ERROR + e.getMessage());
         }
     }
     private void verifyMenuValidity() {

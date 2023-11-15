@@ -25,7 +25,7 @@ class InputViewTest {
     @DisplayName("readDate Test: exceptions")
     void parseDateTest(String input) {
         assertThatThrownBy(() -> {
-           inputView.parseDate(input);
+           inputView.makeDate(input);
         }).isInstanceOf(IllegalArgumentException.class);
     }
     
@@ -43,7 +43,7 @@ class InputViewTest {
     @MethodSource("provideTestCasesForParseDateTest2")
     @DisplayName("readDate Test: success")
     void parseDateTest2(String input, int expectedResult) {
-        assertThat(inputView.parseDate(input)).isEqualTo(expectedResult);
+        assertThat(inputView.makeDate(input)).isEqualTo(expectedResult);
     }
 
     private static Stream<Arguments> provideTestCasesForParseDateTest2() {
@@ -62,7 +62,7 @@ class InputViewTest {
     @DisplayName("readDate Test: exceptions")
     void parseMenuTest(String input) {
         assertThatThrownBy(() -> {
-            inputView.parseMenuWithComma(input);
+            inputView.makeOrders(input);
         }).isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -79,7 +79,7 @@ class InputViewTest {
     @MethodSource("provideTestCasesForparseMenuTest2")
     @DisplayName("readDate Test: correct")
     void parseMenuTest2(String input, List<Order> expectedResult) {
-        assertThat(inputView.parseMenuWithComma(input)
+        assertThat(inputView.makeOrders(input)
                 .equals(expectedResult));
     }
 
