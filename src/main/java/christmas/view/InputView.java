@@ -19,7 +19,7 @@ public class InputView {
         try {
             return isItValid(Integer.parseInt(input));
         } catch(NumberFormatException e) {
-            throw new IllegalArgumentException("[ERROR] Invalid input format", e);
+            throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.", e);
         }
     }
     private int isItValid(Integer input) {
