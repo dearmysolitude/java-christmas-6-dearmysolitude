@@ -43,6 +43,7 @@ public class OutputView {
     }
     public void printDiscounts() {
         System.out.println("<혜택 내역>");
+        //할인 적용 대상이 아니거나, 할인이 0원인 경우 모두 "없음" 출력
         if(eventPlanner.getDiscount().getTotalDiscount() == null || eventPlanner.getDiscount().getTotalDiscount() == 0) {
             System.out.println("없음");
             System.out.println();
@@ -66,7 +67,13 @@ public class OutputView {
         if(eventPlanner.getDiscount().getWeekDiscount() == null) {
             return;
         }
-        System.out.println("주말 할인: -" +numberFormat.format(eventPlanner.getDiscount().getWeekDiscount())+"원");
+        checkDayOrEndAndPrint();
+    }
+    private void checkDayOrEndAndPrint() {
+        if(eventPlanner.getDiscount().isItWeekEnds()) {
+            System.out.println("주말 할인: -" +numberFormat.format(eventPlanner.getDiscount().getWeekDiscount())+"원");
+        }
+        System.out.println("평일 할인: -" +numberFormat.format(eventPlanner.getDiscount().getWeekDiscount())+"원");
     }
     private void printSpecialDiscount() {
         if(eventPlanner.getDiscount().getSpecialDiscount() == null) {
