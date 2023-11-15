@@ -17,10 +17,10 @@ public class Discount {
     public Discount() {
         this.weekEnds = false;
         this.specialDay = false;
-        this.dDayDiscount = null;
-        this.weekDiscount = null;
-        this.specialDiscount = null;
-        this.totalDiscount = null;
+        this.dDayDiscount = 0;
+        this.weekDiscount = 0;
+        this.specialDiscount = 0;
+        this.totalDiscount = 0;
     }
 
     public boolean isItWeekEnds() {
@@ -75,7 +75,6 @@ public class Discount {
     
     private void dDayDiscount(Integer date) {
         if(date > Constants.CHRISTMAS) {
-            this.dDayDiscount = 0;
             return;
         }
         this.dDayDiscount = Constants.DDAY_BASICDISCOUNT 
@@ -90,7 +89,6 @@ public class Discount {
         weekDayDiscount(orders);
     }
     private void weekDayDiscount(List<Order> orders) {
-        this.weekDiscount = 0;
         orders.forEach(order -> {
             if(order.getMenu().getSort() == Sort.DESSERT) {
                 this.weekDiscount += Constants.WEEKLY_DISCOUNT * order.getNumber();
@@ -98,7 +96,6 @@ public class Discount {
         });
     }
     private void weekEndDiscount(List<Order> orders) {
-        this.weekDiscount = 0;
         orders.forEach(order -> {
             if(order.getMenu().getSort() == Sort.MAINDISH) {
                 this.weekDiscount += Constants.WEEKLY_DISCOUNT * order.getNumber();
@@ -109,8 +106,6 @@ public class Discount {
     private void specialDiscount() {
         if(this.specialDay) {
             this.specialDiscount = Constants.SPECIAL_DISCOUNT;
-            return;
         }
-        this.specialDiscount = 0;
     }
 }

@@ -44,7 +44,7 @@ public class OutputView {
     public void printDiscounts() {
         System.out.println("<혜택 내역>");
         //할인 적용 대상이 아니거나, 할인이 0원인 경우 모두 "없음" 출력
-        if(eventPlanner.getDiscount().getTotalDiscount() == null || eventPlanner.getDiscount().getTotalDiscount() == 0) {
+        if(eventPlanner.getDiscount().getTotalDiscount() == 0) {
             System.out.println("없음");
             System.out.println();
             return;
@@ -58,25 +58,28 @@ public class OutputView {
     }
     
     private void printDDayDiscount() {
-        if(eventPlanner.getDiscount().getdDayDiscount() == null) {
+        if(eventPlanner.getDiscount().getdDayDiscount() == 0) {
             return;
         }
         System.out.println("크리스마스 디데이 할인: -" + numberFormat.format(eventPlanner.getDiscount().getdDayDiscount())+"원");
     }
     private void printWeekDiscount() {
-        if(eventPlanner.getDiscount().getWeekDiscount() == null) {
+        if(eventPlanner.getDiscount().getWeekDiscount() == 0) {
             return;
         }
         checkDayOrEndAndPrint();
     }
     private void checkDayOrEndAndPrint() {
+        if(eventPlanner.getDiscount().getWeekDiscount() == 0) {
+            return;
+        }
         if(eventPlanner.getDiscount().isItWeekEnds()) {
             System.out.println("주말 할인: -" +numberFormat.format(eventPlanner.getDiscount().getWeekDiscount())+"원");
         }
         System.out.println("평일 할인: -" +numberFormat.format(eventPlanner.getDiscount().getWeekDiscount())+"원");
     }
     private void printSpecialDiscount() {
-        if(eventPlanner.getDiscount().getSpecialDiscount() == null) {
+        if(eventPlanner.getDiscount().getSpecialDiscount() == 0) {
             return;
         }
         System.out.println("특별 할인: -" + numberFormat.format(eventPlanner.getDiscount().getSpecialDiscount())+"원");
@@ -90,14 +93,10 @@ public class OutputView {
     
     public void printAmountOfAdvantages() {
         System.out.println("<총혜택 금액>");
-        if(eventPlanner.getTotalAdvantage() == null) { // 이벤트 적용 안되었을 때만 발생: 10000원 이하 구매
-            printZeroWon();
-            return;
-        }
-        printEventEnabledAndAmountOfAdvantage();
+        printAmountOfAdvantage();
         System.out.println();
     }
-    private void printEventEnabledAndAmountOfAdvantage() {
+    private void printAmountOfAdvantage() {
         if(eventPlanner.getTotalAdvantage() == 0) { //할인 금액이 0일 경우 발생
             printZeroWon();
             return;
@@ -114,7 +113,6 @@ public class OutputView {
         System.out.println("<할인 후 예상 결제 금액>");
         System.out.println(numberFormat.format(eventPlanner.makeActualCost())+"원");
         System.out.println();
-
     }
     public void printEventBadge() {
         System.out.println("<12월 이벤트 배지>");

@@ -4,7 +4,7 @@ import christmas.constant.Menu;
 
 public class Order {
     private final Menu menu;
-    private final Integer number;
+    private final int number;
     
     public Order(Menu menu, Integer number) {
         this.number = number;
@@ -17,5 +17,9 @@ public class Order {
 
     public Integer getNumber() {
         return number;
+    }
+    
+    public boolean equals(Order o) {
+        return this.menu == o.menu && this.number == o.number;
     }
 }

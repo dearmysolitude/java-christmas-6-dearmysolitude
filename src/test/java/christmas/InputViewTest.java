@@ -14,6 +14,7 @@ import org.mockito.internal.matchers.Or;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 class InputViewTest {
@@ -79,8 +80,13 @@ class InputViewTest {
     @MethodSource("provideTestCasesForparseMenuTest2")
     @DisplayName("readDate Test: correct")
     void parseMenuTest2(String input, List<Order> expectedResult) {
-        assertThat(inputView.makeOrders(input)
-                .equals(expectedResult));
+        List<Order> parsedInput = inputView.makeOrders(input);
+        IntStream.range(0, parsedInput.size()).forEach(i -> {
+            Order order = parsedInput.get(i);
+            Order expectedOrder = expectedResult.get(i);
+            assertThat(order.getMenu()).isEqualTo(expectedOrder.getMenu());
+            assertThat(order.getNumber()).isEqualTo(expectedOrder.getNumber());
+        });
     }
 
     private static Stream<Arguments> provideTestCasesForparseMenuTest2() {

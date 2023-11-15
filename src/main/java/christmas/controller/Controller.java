@@ -24,39 +24,34 @@ public class Controller {
     }
     
     public void handleDate() {
-        while(eventPlanner.getDate() == null) {
-            eventPlanner.setDate(enterDateToEventPlanner());
+        while(true) {
+            try {
+                eventPlanner.setDate(inputView.readDate());
+                break;
+            } catch(IllegalArgumentException e) {
+                System.out.println(ERROR + e.getMessage());
+            }
         }
-    }
-    private Integer enterDateToEventPlanner() {
-        Integer input = null;
-        try{
-            input = inputView.readDate();
-        } catch(IllegalArgumentException e) {
-            System.out.println(ERROR + e.getMessage());
-        }
-        return input;
     }
     
     public void handleMenu() {
-        while(eventPlanner.getMenuOrders() == null) {
-            enterMenuToEventPlanner();
-        }
-    }
-    
-    private void enterMenuToEventPlanner() {
-        try{
-            eventPlanner.setMenuOrders(inputView.readMenu());
-        } catch(IllegalArgumentException e) {
-            System.out.println(ERROR + e.getMessage());
+        while(true) {
+            try{
+                eventPlanner.setMenuOrders(inputView.readMenu());
+                break;
+            } catch(IllegalArgumentException e) {
+                System.out.println(ERROR + e.getMessage());
+            }
         }
     }
     
     public void makeResult() {
         eventPlanner.makeTotalprice();
+        
         if(eventPlanner.getTotalPrice() < 10000) {
             return;
         }
+        
         eventPlanner.makeTotalAdvantage();
         eventPlanner.setBadge();
     }

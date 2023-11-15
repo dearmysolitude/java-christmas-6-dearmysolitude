@@ -22,10 +22,10 @@ public class EventPlanner {
     public EventPlanner() {
         this.orders = null;
         this.date = null;
-        this.totalPrice = null;
+        this.totalPrice = 0;
         this.discount = new Discount();
         this.gift = null;
-        this.totalAdvantage = null;
+        this.totalAdvantage = 0;
         this.badge = null;
     }
 
@@ -94,11 +94,7 @@ public class EventPlanner {
     }
     
     public Integer makeActualCost() {
-        if(this.totalAdvantage == null) {
-            return this.totalPrice;
-        }
-        return this.totalPrice 
-                - this.discount.getTotalDiscount();
+        return this.totalPrice - this.discount.getTotalDiscount();
     }
     
     private void checkMenuOrders() {

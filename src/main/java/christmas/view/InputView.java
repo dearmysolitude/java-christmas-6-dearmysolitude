@@ -19,13 +19,10 @@ public class InputView {
         return makeDate(input);
     }
     public Integer makeDate(String input) {
-        Integer parsedInput = parseDate(input);
+        Integer parsedInput = pareseStringToInteger(input, INPUT_DATE_ERROR_MESSAGE);
         return isItValid(parsedInput);
     }
     
-    private int parseDate(String input) {
-        return pareseStringToInteger(input, INPUT_DATE_ERROR_MESSAGE);
-    }
     private Integer isItValid(Integer input) {
         if(input >= 1 && input <= 31) {
             return input;
@@ -38,6 +35,7 @@ public class InputView {
         String input = Console.readLine();
         
         checkIfOrderIsEmpty(input);
+        
         return makeOrders(input);
     }
     
@@ -65,6 +63,10 @@ public class InputView {
         
         Menu menu = Menu.getMenuWithName(input.get(0));
         int number = pareseStringToInteger(input.get(1), INPUT_MENU_ERROR_MESSAGE + " 음식 수량은 1 이상 숫자로 입력해주세요.");
+        
+        if(input.size() != 2) {
+            throw new IllegalArgumentException(INPUT_MENU_ERROR_MESSAGE);
+        }
         
         return new Order(menu, number);
     }
