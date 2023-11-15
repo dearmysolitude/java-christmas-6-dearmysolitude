@@ -19,10 +19,10 @@ public class Application {
         
         controller.handleDate();
         controller.handleMenu();
-        
-        controller.makeResult();
-        
+
         controller.middleMessagePrint();
+
+        controller.makeResult();
         
         controller.printResult();
         

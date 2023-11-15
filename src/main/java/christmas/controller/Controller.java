@@ -43,12 +43,12 @@ public class Controller {
                 input = inputView.readMenu();
                 eventPlanner.setMenuOrders(input);
                 eventPlanner.checkMenuOrders();
+                eventPlanner.ifOrderedOverTwenty();
+                eventPlanner.ifOrderedOnlyDrink();
             } catch(IllegalArgumentException e) {
                 eventPlanner.setMenuOrders(null);
                 System.out.println(ERROR + " 유효하지 않은 주문입니다. 다시 입력해 주세요.");
             }
-            eventPlanner.ifOrderedOverTwenty();
-            eventPlanner.ifOrderedOnlyDrink();
         }
     }
     
@@ -71,7 +71,7 @@ public class Controller {
         outputView.printMenu();
         outputView.printTotalPrice();
         outputView.printGift();
-//        outputView.printDiscounts();
+        outputView.printDiscounts();
         outputView.printAmountOfAdvantages();
         outputView.printExpectedPrice();
         outputView.printEventBadge();
