@@ -52,7 +52,7 @@ public class OutputView {
     }
     private void printDiscounts() {
         System.out.println("<혜택 내역>");
-        if(eventPlanner.getDiscount().getTotalDiscount() == 0) {
+        if(eventPlanner.getTotalAdvantage() == 0) {
             System.out.println("없음");
             System.out.println();
             return;
@@ -60,7 +60,7 @@ public class OutputView {
         printDDayDiscount();
         printWeekDiscount();
         printSpecialDiscount();
-        printGitfEvent();
+        printGiftEvent();
         
         System.out.println();
     }
@@ -92,7 +92,7 @@ public class OutputView {
         }
         System.out.println("특별 할인: -" + numberFormat.format(eventPlanner.getDiscount().getSpecialDiscount())+"원");
     }
-    private void printGitfEvent() {
+    private void printGiftEvent() {
         if(eventPlanner.getGift() == null) {
             return;
         }
